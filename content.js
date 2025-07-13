@@ -8,13 +8,33 @@ class SnapliiExtension {
   }
 
   init() {
+    // Clear any existing Snaplii elements first
+    this.clearExistingElements();
+    
     this.detectWebsite();
     this.addCashbackIndicator();
-    this.trackPurchases();
     // Setup scroll listener after a small delay to ensure domain detection is complete
     setTimeout(() => {
       this.setupScrollListener();
     }, 500);
+  }
+
+  clearExistingElements() {
+    // Remove any existing Snaplii elements to prevent conflicts
+    const elementsToRemove = [
+      'snaplii-cashback-notification',
+      'snaplii-scroll-popup', 
+      'snaplii-cashback-indicator',
+      'snaplii-cashback-earned'
+    ];
+    
+    elementsToRemove.forEach(id => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.remove();
+        console.log('Removed existing element:', id);
+      }
+    });
   }
 
   detectWebsite() {
@@ -33,23 +53,14 @@ class SnapliiExtension {
 
   getCashbackRate(domain) {
     const cashbackRates = {
+      // Focus only on Amazon and Walmart
       'walmart.ca': 2,
-      'gap.ca': 5,
-      'oldnavy.ca': 4,
-      'bostenpizza.com': 3,
-      'swisschalet.com': 2.5,
-      'uber.com': 1,
-      'doordash.com': 3,
-      'airbnb.ca': 4,
       'amazon.ca': 1.5,
-      'bestbuy.ca': 2,
-      'canadiantire.ca': 3,
-      'hudson.ca': 6,
-      'thebay.com': 4,
-      // Test domains for any site
+      'amazon.com': 1.5,
+      'walmart.com': 2,
+      // Test domains for development
       'google.com': 3,
       'github.com': 2,
-      'stackoverflow.com': 1.5,
       'localhost': 5
     };
     
@@ -106,60 +117,6 @@ class SnapliiExtension {
     }
   }
 
-  trackPurchases() {
-    // Monitor for purchase-related keywords and patterns
-    const purchaseKeywords = ['checkout', 'purchase', 'buy now', 'add to cart', 'order'];
-    
-    document.addEventListener('click', (event) => {
-      const element = event.target;
-      const text = element.textContent.toLowerCase();
-      
-      if (purchaseKeywords.some(keyword => text.includes(keyword))) {
-        this.simulateCashbackEarned();
-      }
-    });
-  }
-
-  simulateCashbackEarned() {
-    // Simulate earning cashback for demo purposes
-    const domain = window.location.hostname;
-    const rate = this.getCashbackRate(domain);
-    
-    if (rate > 0) {
-      const randomAmount = (Math.random() * 50 + 5).toFixed(2); // $5-$55
-      const cashback = (randomAmount * rate / 100).toFixed(2);
-      
-      this.sendToBackground({ 
-        type: 'CASHBACK_EARNED', 
-        amount: parseFloat(cashback),
-        domain,
-        purchaseAmount: randomAmount
-      });
-      
-      this.showCashbackEarned(cashback);
-    }
-  }
-
-  showCashbackEarned(amount) {
-    const popup = document.createElement('div');
-    popup.id = 'snaplii-cashback-earned';
-    popup.innerHTML = `
-      <div class="snaplii-earned-content">
-        <div class="snaplii-earned-title">🎉 Cashback Earned!</div>
-        <div class="snaplii-earned-amount">$${amount}</div>
-        <div class="snaplii-earned-subtitle">Added to your Snaplii wallet</div>
-      </div>
-    `;
-    
-    document.body.appendChild(popup);
-    
-    setTimeout(() => {
-      if (popup.parentElement) {
-        popup.remove();
-      }
-    }, 3000);
-  }
-
   sendToBackground(message) {
     chrome.runtime.sendMessage(message).catch(error => {
       console.error('Error sending message to background:', error);
@@ -208,19 +165,28 @@ class SnapliiExtension {
     const existing = document.getElementById('snaplii-scroll-popup');
     if (existing) existing.remove();
 
+    // Get gift card offers for this domain
+    const giftCardOffers = this.getGiftCardOffers(this.currentDomain);
+
     const popup = document.createElement('div');
     popup.id = 'snaplii-scroll-popup';
     popup.innerHTML = `
       <div class="snaplii-scroll-content">
         <div class="snaplii-scroll-header">
-          <span class="snaplii-scroll-icon">🛍️</span>
-          <span class="snaplii-scroll-title">Don't forget your cashback!</span>
+          <span class="snaplii-scroll-icon">🎁</span>
+          <span class="snaplii-scroll-title">Special Gift Card Offers!</span>
           <button class="snaplii-scroll-close" onclick="this.parentElement.parentElement.parentElement.remove()">×</button>
         </div>
         <div class="snaplii-scroll-body">
-          <div class="snaplii-scroll-rate">${this.currentRate}% cashback</div>
-          <div class="snaplii-scroll-subtitle">on ${this.currentDomain}</div>
-          <div class="snaplii-scroll-cta">Shop through Snaplii to earn rewards!</div>
+          <div class="snaplii-scroll-offers">
+            ${giftCardOffers.map(offer => `
+              <div class="snaplii-scroll-offer">
+                <div class="snaplii-offer-main">${offer.main}</div>
+                <div class="snaplii-offer-subtitle">${offer.subtitle}</div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="snaplii-scroll-cta">Available exclusively through Snaplii!</div>
         </div>
       </div>
     `;
@@ -234,6 +200,44 @@ class SnapliiExtension {
         setTimeout(() => popup.remove(), 300);
       }
     }, 8000);
+  }
+
+  getGiftCardOffers(domain) {
+    const offers = {
+      'amazon.ca': [
+        { main: 'Get $50 Amazon gift card for only $40', subtitle: 'Save 20% instantly on your purchase' },
+        { main: 'Buy $100 gift card, get $15 bonus', subtitle: 'Extra value for bulk purchases' }
+      ],
+      'amazon.com': [
+        { main: 'Get $50 Amazon gift card for only $40', subtitle: 'Save 20% instantly on your purchase' },
+        { main: 'Buy $100 gift card, get $15 bonus', subtitle: 'Extra value for bulk purchases' }
+      ],
+      'walmart.ca': [
+        { main: 'Get $75 Walmart gift card for only $60', subtitle: 'Save 20% on everyday essentials' },
+        { main: 'Buy $150 gift card, get $25 bonus', subtitle: 'Perfect for grocery shopping' }
+      ],
+      'walmart.com': [
+        { main: 'Get $75 Walmart gift card for only $60', subtitle: 'Save 20% on everyday essentials' },
+        { main: 'Buy $150 gift card, get $25 bonus', subtitle: 'Perfect for grocery shopping' }
+      ],
+      // Test domains with demo gift card offers
+      'github.com': [
+        { main: 'Demo: Get $50 gift card for only $40', subtitle: 'This is a test offer for development' },
+        { main: 'Demo: Buy $100, get $15 bonus', subtitle: 'Testing gift card functionality' }
+      ],
+      'google.com': [
+        { main: 'Demo: Special gift card promotion', subtitle: 'Test offer - not real' },
+        { main: 'Demo: Buy $75, get $10 bonus', subtitle: 'Development testing only' }
+      ],
+      'localhost': [
+        { main: 'Local Dev: $50 for $40 gift card', subtitle: 'Development environment offer' },
+        { main: 'Local Dev: Bonus gift card deals', subtitle: 'Testing purposes only' }
+      ]
+    };
+
+    return offers[domain] || [
+      { main: 'Special gift card offers available', subtitle: 'Check Snaplii app for details' }
+    ];
   }
 }
 

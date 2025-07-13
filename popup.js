@@ -88,21 +88,16 @@ function getFaviconUrl(tabUrl, domain) {
 }
 
 function getCashbackRate(domain) {
-  // Mock cashback rates for demo purposes
+  // Focus on Amazon and Walmart only
   const cashbackRates = {
     'walmart.ca': 2,
-    'gap.ca': 5,
-    'oldnavy.ca': 4,
-    'bostenpizza.com': 3,
-    'swisschalet.com': 2.5,
-    'uber.com': 1,
-    'doordash.com': 3,
-    'airbnb.ca': 4,
     'amazon.ca': 1.5,
-    'bestbuy.ca': 2,
-    'canadiantire.ca': 3,
-    'hudson.ca': 6,
-    'thebay.com': 4
+    'amazon.com': 1.5,
+    'walmart.com': 2,
+    // Test domains for development
+    'google.com': 3,
+    'github.com': 2,
+    'localhost': 5
   };
   
   return cashbackRates[domain] || 0;
