@@ -1,0 +1,7 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="16" height="16" rx="3" fill="#667eea"/>
+<path d="M8 3C9.657 3 11 4.343 11 6C11 7.657 9.657 9 8 9C6.343 9 5 7.657 5 6C5 4.343 6.343 3 8 3Z" fill="white"/>
+<path d="M4 12C4 10.895 4.895 10 6 10H10C11.105 10 12 10.895 12 12V13H4V12Z" fill="white"/>
+<circle cx="12" cy="4" r="2" fill="#4ade80"/>
+<text x="12" y="5.5" text-anchor="middle" font-family="Arial" font-size="2" fill="white">$</text>
+</svg>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 320px;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      margin: 0;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px;
+    }
+    .logo-text {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .cashback-section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(10px);
+    }
+    .cashback-title {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+    .cashback-amount {
+      font-size: 28px;
+      font-weight: bold;
+      color: #4ade80;
+    }
+    .current-site {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .site-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .site-details {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .site-favicon {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2px;
+    }
+    .cashback-rate {
+      background: #4ade80;
+      color: #1f2937;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 12px;
+    }
+    .qr-section {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .qr-code {
+      width: 120px;
+      height: 120px;
+      background: white;
+      border-radius: 8px;
+      margin: 12px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      font-size: 12px;
+    }
+    .scan-text {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    .gift-card-section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(10px);
+    }
+    .gift-card-offers {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .gift-card-offer {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .offer-text {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .discount-highlight {
+      color: #4ade80;
+      font-weight: bold;
+    }
+    .price-highlight {
+      color: #fbbf24;
+      font-weight: bold;
+    }
+    .bonus-highlight {
+      color: #f87171;
+      font-weight: bold;
+    }
+    .offer-subtitle {
+      font-size: 11px;
+      opacity: 0.7;
+      line-height: 1.2;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="snapliiLogo.3037c21e.png" alt="Snaplii Logo" class="logo-image">
+    <div class="logo-text">Snaplii</div>
+    <div>Interview Demo Extension</div>
+  </div>
+  
+  <div class="cashback-section">
+    <div class="cashback-title">Total Cashback Earned</div>
+    <div class="cashback-amount" id="totalCashback">$0.00</div>
+  </div>
+  
+  <div class="current-site">
+    <div class="cashback-title">Current Website</div>
+    <div class="site-info">
+      <div class="site-details">
+        <img id="siteFavicon" class="site-favicon" src="" alt="" style="display: none;">
+        <div id="siteName">Detecting...</div>
+      </div>
+      <div class="cashback-rate" id="cashbackRate" style="display: none;">0%</div>
+    </div>
+  </div>
+  
+  <div class="gift-card-section">
+    <div class="cashback-title">Gift Cards for this Site</div>
+    <div class="gift-card-offers">
+      <div class="gift-card-offer">
+        <div class="offer-text">Get <span class="discount-highlight">$50</span> gift card for only <span class="price-highlight">$40</span></div>
+        <div class="offer-subtitle">Save 20% instantly on your next purchase</div>
+      </div>
+      <div class="gift-card-offer">
+        <div class="offer-text">Buy <span class="discount-highlight">$100</span> gift card, get <span class="bonus-highlight">$15 bonus</span></div>
+        <div class="offer-subtitle">Extra cashback rewards for bulk purchases</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="qr-section">
+    <div class="cashback-title">Scan with Snaplii App</div>
+    <div class="qr-code" id="qrCode">QR Code Here</div>
+    <div class="scan-text">Open app to scan for exclusive offers</div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

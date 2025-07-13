@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Snaplii Extension - Interview Demo",
+  "version": "1.0.0",
+  "description": "Local Snaplii extension with cashback tracking, gift card detection, and QR code display",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*/*",
+    "https://www.google.com/s2/favicons*",
+    "https://favicon.yandex.net/*",
+    "https://icons.duckduckgo.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Snaplii Extension"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.svg",
+    "48": "icons/icon48.svg",
+    "128": "icons/icon128.svg"
+  }
+}
