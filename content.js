@@ -10,7 +10,7 @@ class SnapliiExtension {
   init() {
     // Clear any existing Snaplii elements first
     this.clearExistingElements();
-    
+
     this.detectWebsite();
     this.addCashbackIndicator();
     // Setup scroll listener after a small delay to ensure domain detection is complete
@@ -23,11 +23,11 @@ class SnapliiExtension {
     // Remove any existing Snaplii elements to prevent conflicts
     const elementsToRemove = [
       'snaplii-cashback-notification',
-      'snaplii-scroll-popup', 
+      'snaplii-scroll-popup',
       'snaplii-cashback-indicator',
       'snaplii-cashback-earned'
     ];
-    
+
     elementsToRemove.forEach(id => {
       const element = document.getElementById(id);
       if (element) {
@@ -40,12 +40,12 @@ class SnapliiExtension {
   detectWebsite() {
     const domain = window.location.hostname;
     const cashbackRate = this.getCashbackRate(domain);
-    
+
     if (cashbackRate > 0) {
       // Store domain info for scroll popup
       this.currentDomain = domain;
       this.currentRate = cashbackRate;
-      
+
       this.showCashbackNotification(cashbackRate);
       this.sendToBackground({ type: 'CASHBACK_SITE_DETECTED', domain, rate: cashbackRate });
     }
@@ -63,7 +63,7 @@ class SnapliiExtension {
       'github.com': 2,
       'localhost': 5
     };
-    
+
     console.log('Checking cashback rate for domain:', domain);
     const rate = cashbackRates[domain] || 0;
     console.log('Found rate:', rate);
@@ -87,9 +87,9 @@ class SnapliiExtension {
         <button class="snaplii-close" onclick="this.parentElement.parentElement.remove()">×</button>
       </div>
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     // Auto-hide after 5 seconds
     setTimeout(() => {
       if (notification.parentElement) {
@@ -101,7 +101,7 @@ class SnapliiExtension {
   addCashbackIndicator() {
     const domain = window.location.hostname;
     const rate = this.getCashbackRate(domain);
-    
+
     if (rate > 0) {
       // Add floating cashback indicator
       const indicator = document.createElement('div');
@@ -112,7 +112,7 @@ class SnapliiExtension {
           <div class="snaplii-text">Cashback</div>
         </div>
       `;
-      
+
       document.body.appendChild(indicator);
     }
   }
@@ -125,7 +125,7 @@ class SnapliiExtension {
 
   setupScrollListener() {
     console.log('Setting up scroll listener. Current rate:', this.currentRate, 'Domain:', this.currentDomain);
-    
+
     if (!this.currentRate || this.currentRate <= 0) {
       console.log('No scroll listener setup - no cashback rate detected');
       return;
@@ -138,25 +138,25 @@ class SnapliiExtension {
         this.handleScroll();
       }, 100);
     });
-    
+
     console.log('Scroll listener setup complete for domain:', this.currentDomain);
   }
 
   handleScroll() {
     const currentScrollY = window.scrollY;
-    
+
     console.log('Scroll detected:', currentScrollY, 'Threshold:', this.scrollThreshold, 'Has shown:', this.hasShownScrollPopup);
-    
+
     // Only show popup if user has scrolled down significantly and hasn't seen it yet
-    if (currentScrollY > this.scrollThreshold && 
-        !this.hasShownScrollPopup && 
-        currentScrollY > this.lastScrollY) {
-      
+    if (currentScrollY > this.scrollThreshold &&
+      !this.hasShownScrollPopup &&
+      currentScrollY > this.lastScrollY) {
+
       console.log('Showing scroll triggered popup');
       this.showScrollTriggeredPopup();
       this.hasShownScrollPopup = true;
     }
-    
+
     this.lastScrollY = currentScrollY;
   }
 
@@ -190,9 +190,9 @@ class SnapliiExtension {
         </div>
       </div>
     `;
-    
+
     document.body.appendChild(popup);
-    
+
     // Auto-hide after 8 seconds
     setTimeout(() => {
       if (popup.parentElement) {
