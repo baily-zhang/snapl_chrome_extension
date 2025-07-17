@@ -6,6 +6,7 @@ class SnapliiExtension {
     this.lastScrollY = 0;
     this.init();
 
+
   }
 
   init() {
