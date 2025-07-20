@@ -28,6 +28,7 @@ class SnapliiExtension {
       'snaplii-cashback-earned'
     ];
 
+
     elementsToRemove.forEach(id => {
       const element = document.getElementById(id);
       if (element) {
