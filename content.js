@@ -2,6 +2,7 @@
 class SnapliiExtension {
   constructor() {
     this.scrollThreshold = 300; // pixels
+
     this.hasShownScrollPopup = false;
     this.lastScrollY = 0;
     this.init();
