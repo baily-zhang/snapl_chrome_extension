@@ -2,6 +2,7 @@
 //
 //
 // :w;:
+//
 class SnapliiExtension {
 
   constructor() {
