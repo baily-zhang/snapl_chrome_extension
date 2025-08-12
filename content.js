@@ -1,8 +1,4 @@
 // Content script for website detection and interaction
-//
-//
-// :w;:
-//
 class SnapliiExtension {
 
   constructor() {
