@@ -1,6 +1,7 @@
 // Content script for website detection and interaction
 class SnapliiExtension {
 
+
   constructor() {
     this.scrollThreshold = 300; // pixels
 
