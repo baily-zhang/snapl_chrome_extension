@@ -52,7 +52,6 @@ class SnapliiExtension {
       this.sendToBackground({ type: 'CASHBACK_SITE_DETECTED', domain, rate: cashbackRate });
     }
   }
-
   getCashbackRate(domain) {
     const cashbackRates = {
       // Focus only on Amazon and Walmart
