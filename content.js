@@ -9,7 +9,6 @@ class SnapliiExtension {
   init() {
     // Clear any existing Snaplii elements first
     this.clearExistingElements();
-
     this.detectWebsite();
     this.addCashbackIndicator();
     // Setup scroll listener after a small delay to ensure domain detection is complete
