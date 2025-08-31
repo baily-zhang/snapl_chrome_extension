@@ -5,6 +5,7 @@ class SnapliiExtension {
     this.hasShownScrollPopup = false;
     this.lastScrollY = 0;
     this.init();
+
   }
   init() {
     // Clear any existing Snaplii elements first
