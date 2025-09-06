@@ -55,6 +55,7 @@ class SnapliiExtension {
       'walmart.ca': 2,
       'amazon.ca': 1.5,
       'amazon.com': 1.5,
+
       'walmart.com': 2,
       // Test domains for development
       'google.com': 3,
