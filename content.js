@@ -7,6 +7,7 @@ class SnapliiExtension {
     this.init();
   }
 
+
   init() {
     // Clear any existing Snaplii elements first
     this.clearExistingElements();
