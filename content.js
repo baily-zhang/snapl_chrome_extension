@@ -16,7 +16,6 @@ class SnapliiExtension {
       this.setupScrollListener();
     }, 500);
   }
-
   clearExistingElements() {
     // Remove any existing Snaplii elements to prevent conflicts
     const elementsToRemove = [
