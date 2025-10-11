@@ -34,7 +34,6 @@ class SnapliiExtension {
       }
     });
   }
-
   detectWebsite() {
     const domain = window.location.hostname;
     const cashbackRate = this.getCashbackRate(domain);
