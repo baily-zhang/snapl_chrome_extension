@@ -230,7 +230,6 @@ class SnapliiExtension {
         { main: 'Local Dev: Bonus gift card deals', subtitle: 'Testing purposes only' }
       ]
     };
-
     return offers[domain] || [
       { main: 'Special gift card offers available', subtitle: 'Check Snaplii app for details' }
     ];
