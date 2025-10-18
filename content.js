@@ -6,7 +6,6 @@ class SnapliiExtension {
     this.lastScrollY = 0;
     this.init();
   }
-
   init() {
     // Clear any existing Snaplii elements first
     this.clearExistingElements();
